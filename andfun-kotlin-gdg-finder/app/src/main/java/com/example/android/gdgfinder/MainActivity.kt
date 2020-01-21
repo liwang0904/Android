@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         setupNavigation()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        
+
     }
 
     /**
