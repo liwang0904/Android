@@ -22,12 +22,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
 import com.example.android.trackmysleepquality.databinding.FragmentSleepQualityBinding
-import com.example.android.trackmysleepquality.sleeptracker.SleepTrackerViewModel
-import com.example.android.trackmysleepquality.sleeptracker.SleepTrackerViewModelFactory
 
 /**
  * Fragment that displays a list of clickable icons,
@@ -51,17 +51,30 @@ class SleepQualityFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
+        val arguments = SleepQualityFragmentArgs.fromBundle(arguments!!)
+
         val dataSource = SleepDatabase.getInstance(application).sleepDatabaseDao
+        val viewModelFactory = SleepQualityViewModelFactory(arguments.sleepNightKey, dataSource)
 
-        val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
-
-        val sleepTrackerViewModel =
+        // Get a reference to the ViewModel associated with this fragment.
+        val sleepQualityViewModel =
                 ViewModelProviders.of(
-                        this, viewModelFactory).get(SleepTrackerViewModel::class.java)
+                        this, viewModelFactory).get(SleepQualityViewModel::class.java)
 
-        binding.sleepTrackerViewModel = sleepTrackerViewModel
+        // To use the View Model with data binding, you have to explicitly
+        // give the binding object a reference to it.
+        binding.sleepQualityViewModel = sleepQualityViewModel
 
-        binding.setLifecycleOwner(this)
+        // Add an Observer to the state variable for Navigating when a Quality icon is tapped.
+        sleepQualityViewModel.navigateToSleepTracker.observe(this, Observer {
+            if (it == true) { // Observed state is true.
+                this.findNavController().navigate(
+                        SleepQualityFragmentDirections.actionSleepQualityFragmentToSleepTrackerFragment())
+                // Reset state to make sure we only navigate once, even if the device
+                // has a configuration change.
+                sleepQualityViewModel.doneNavigating()
+            }
+        })
 
         return binding.root
     }
