@@ -18,6 +18,7 @@ package com.example.android.marsrealestate.detail
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.example.android.marsrealestate.R
 import com.example.android.marsrealestate.detail.DetailFragment
 import com.example.android.marsrealestate.network.MarsProperty
 
@@ -56,4 +57,5 @@ class DetailViewModel(marsProperty: MarsProperty, app: Application) : AndroidVie
                             true -> R.string.type_rent
                             false -> R.string.type_sale
                         }))
-    }}
+    }
+}
