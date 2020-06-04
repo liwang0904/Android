@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="category_icon_size">@dimen/_70sdp</dimen>
+    <dimen name="health_image_size">@dimen/_45sdp</dimen>
+    <dimen name="scoreboard_image_size">@dimen/_45sdp</dimen>
+    <dimen name="webview_txtSize">@dimen/_5sdp</dimen>
+    <dimen name="piechart_size">@dimen/_200sdp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+</resources>

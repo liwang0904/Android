@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <android.support.v7.widget.CardView
+        style="@style/AppTheme.MyTheme.Cordinates_Length.MW"
+        android:background="@android:color/white"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        app:cardElevation="@dimen/_2sdp"
+        app:cardPreventCornerOverlap="false">
+        <RelativeLayout
+            style="@style/AppTheme.MyTheme.Cordinates_Length.MW"
+            android:background="?android:attr/selectableItemBackground"
+            tools:background="@drawable/ripple_effect_recyclerview"
+            android:padding="@dimen/_6sdp">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_130sdp"
+        android:contentDescription="TODO"
+        android:src="@drawable/image_placeholder" />
+
+            <com.abhiandroid.quizgameapp.views.AllerRegularTextView
+                android:id="@+id/firstLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@+id/icon"
+                android:text="Example application"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:textColor="@color/category_txt_color"
+                android:textSize="@dimen/_10sdp" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
+
+    <!--Developed by AbhiAndroid.com-->

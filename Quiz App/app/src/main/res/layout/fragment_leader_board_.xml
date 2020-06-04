@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="marsdata"
+            type="com.abhiandroid.quizgameapp.fragments.LeaderBoard_Frag" />
+    </data>
+<FrameLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/searched_data_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_toolbar"
+        android:layout_above="@+id/ad_view"
+        android:descendantFocusability="blocksDescendants"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+            <LinearLayout
+                style="@style/AppTheme.MyTheme.Cordinates_Length.MW"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp">
+              <!--  <com.abhiandroid.quizgameapp.views.AllerRegularTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dialog_bg_color"
+                    android:text="@string/your_need"/>-->
+                `<com.abhiandroid.quizgameapp.views.AllerRegularTextView
+                    android:id="@+id/more_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    />
+               <!-- <com.abhiandroid.quizgameapp.views.AllerRegularTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dialog_bg_color"
+                    android:text="@string/score_to_beat"/>-->
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_leaderboard"
+                style="@style/AppTheme.MyTheme.Cordinates_Length.MM"
+                android:layout_below="@+id/search_toolbar"
+                android:nestedScrollingEnabled="false"
+                android:paddingBottom="@dimen/_5sdp"
+                android:paddingTop="@dimen/_5sdp"
+                ></android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:id="@+id/ll_load_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/load_more_icon"/>
+
+                <com.abhiandroid.quizgameapp.views.AllerRegularTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp"
+                    android:onClick="loadMore"
+                    android:textColor="@android:color/white"
+                    android:text="Load More"/>
+            </LinearLayout>
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:indeterminateTintMode="src_atop"
+                android:indeterminateTint="@android:color/black"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</FrameLayout>
+</layout>
+
+    <!--Developed by AbhiAndroid.com-->

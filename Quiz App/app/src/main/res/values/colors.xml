@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--DEFAULT COLOR'S-->
+    <color name="colorPrimary">#00bf61</color>
+    <color name="colorPrimaryDark">#00833d</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--MODIFIED COLOR'S-->
+    <color name="app_theme_color">#00bf61</color>
+    <color name="fb_bg_color">#325b94</color>
+    <color name="google_bg_color">#ec4137</color>
+    <color name="category_bg_color">#f3f3f3</color>
+    <color name="category_txt_color">#808080</color>
+    <color name="dialog_bg_color">#8C000000</color>
+    <color name="play_quiz_bg_color">#e0e0e0</color>
+    <color name="follow_active">#1686D9</color>
+    <color name="progress_bar_finished_color">#bfded2</color>
+    <color name="progress_bar_unfinished_color">@color/colorPrimaryDark</color>
+    <color name="progress_bar_txt_color">@color/colorPrimary</color>
+    <color name="txt_color_yellow">#f6cc04</color>
+    <color name="txt_color_red">#ed2300</color>
+    <color name="txt_color_green">#286b37</color>
+
+</resources>

@@ -1,0 +1,100 @@
+<resources>
+
+    <string name="app_name">Quiz Game</string>
+    <!--Firebase project Id-->
+    <string name="firebase_project_id">quiz-app-1529469041477</string>
+    <!--Add mob App Id-->
+    <string name="addmob_app_id">ca-app-pub-7694781728609715~3553649088</string>
+    <!--Banner unit id-->
+    <string name="banner_unit_id">ca-app-pub-7694781728609715/7340958659</string>
+    <!--Interstitial Unit id-->
+    <string name="interstitial_unit_id">ca-app-pub-7694781728609715/1402236265</string>
+    <!--Facebook app keys-->
+    <string name="facebook_app_id">1353313764804123</string>
+    <string name="fb_login_protocol_scheme">fb1353313764804123</string>
+    <!--//////////////////////////////////////-->
+    <!--Errors-->
+    <string name="internet_not_available">Something went wrong! Please check your internet connection</string>
+    <!--//Errors-->
+    <string name="take_quiz">Take Quiz</string>
+    <string name="login">Login</string>
+    <string name="login_txt">Please Login to play the Quiz.</string>
+    <string name="choose_category">Categories</string>
+    <string name="choose_subcategory">Sub Categories</string>
+    <string name="search_hint">Search...</string>
+    <string name="minimum_search_limit">Please enter at least 3 characters\nand hit search</string>
+    <string name="terms_condition">Terms &amp; Condition</string>
+    <string name="logout">Logout</string>
+    <string name="no_data_found">Data not Found</string>
+    <string name="no_question_added">No question added in this quiz. Please try quiz in other category.</string>
+    <string name="no_quiz_found">No quiz added by admin in this subcategory. Please check back later.</string>
+    <string name="no_quiz_searched">Quiz not found. Please try different keyword and search again.</string>
+    <string name="no_favourite_found">You have not followed any quiz to display here. Try following few.</string>
+    <string name="no_subcat_found">Subcategories not found. Please try different keyword and search again.</string>
+    <string name="no_subcat_added">Subcategories not found. Please try different category.</string>
+    <string name="no_categories_found">Categories not found. Please try different keyword and search again.</string>
+    <string name="no_categories_added">Categories not found. Please try later.</string>
+    <!--Login Popup messages-->
+    <string name="profile_login_message">Please login to see your profile.</string>
+
+    <string name="choose_quiz">Choose Quiz</string>
+    <string name="quiz_name">Quiz Name</string>
+    <string name="rate_app">Rate us</string>
+    <string name="questions">Questions</string>
+    <string name="best_score">Best Score</string>
+    <string name="time">Time</string>
+    <string name="play_now">Play Now</string>
+    <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
+    <string name="info">Info</string>
+    <string name="favorite">Favourite</string>
+    <string name="Chance_50_50_used">You Have Already Used "50-50" feature</string>
+    <string name="Chance_skip_used">You Have Already Used "Skip" feature</string>
+    <string name="option_a">Option A</string>
+    <string name="option_b">Option B</string>
+    <string name="option_c">Option C</string>
+    <string name="option_d">Option D</string>
+    <string name="score">Score</string>
+    <string name="your_score">Your Score</string>
+    <string name="your_total_score">Your Total Score :</string>
+    <string name="correct">Correct</string>
+    <string name="wrong">Wrong</string>
+    <string name="share_it">Share it:</string>
+    <string name="result_analysis">Result Analysis</string>
+    <string name="great_play">Great Play,</string>
+    <string name="play_again">Play Again</string>
+    <string name="or">OR</string>
+    <string name="leaderboard">LeaderBoard</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_quizes">My Quizes</string>
+    <string name="your_need">You Need</string>
+    <string name="score_to_beat">more score to become Top Scorer.</string>
+    <string name="congratulations_to_top_scorer"><font color='#ffff8800'>Congratulations!</font> you are Top Scorer.</string>
+    <string name="faq">FAQ</string>
+    <string name="setting">Setting</string>
+    <string name="feedback">Feedback</string>
+    <string name="profile">Profile</string>
+    <string name="login_mandotry_leaderboard">Please login to see your leaderboard and score analysis.</string>
+    <string name="login_mandotry_play_quiz">Please login to play quiz.</string>
+    <string name="logged_in_successfully">Logged in Successfully</string>
+    <string name="internet_error">No internet connection found. Please check your internet connection.</string>
+    <string name="try_again">Try Again</string>
+    <string name="notification">Notification</string>
+    <string name="email">Email</string>
+    <string name="subject">Subject</string>
+    <string name="send_mail">Send Mail</string>
+    <string name="message">Message</string>
+    <string name="setting_message">If you disable notifications, you will miss latest quiz updates.</string>
+    <string name="vibration">Vibration</string>
+    <string name="try_another_cat">Try another category</string>
+    <string name="user_name">Username</string>
+    <string name="want_to_logout">Are you sure , you want to logout?</string>
+    <string name="share">Share</string>
+    <string name="share_score">Share Score</string>
+    <string name="share_your_score">Share your score :</string>
+    <string name="please_login">Please Login</string>
+    <string name="email_mandatory">Without your email we were unable to create to account. Please try google login or provide your email with facebook.</string>
+    <string name="see_your_ranking">Check your ranking in leaderboard</string>
+</resources>

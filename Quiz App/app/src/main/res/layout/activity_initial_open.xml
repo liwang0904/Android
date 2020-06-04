@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppTheme.MyTheme.Cordinates_Length.MM"
+    tools:context=".activity.InitialOpenActivity"
+    android:background="@drawable/splashscreen_background">
+   <LinearLayout
+       style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+       android:orientation="vertical"
+       android:layout_centerInParent="true">
+
+
+    <ImageView
+        style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+        android:src="@drawable/quizsplashicon"
+       />
+       <Space
+           android:layout_width="wrap_content"
+           android:layout_height="@dimen/_20sdp" />
+   <ImageView
+       style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+       android:src="@drawable/quizapp_text"/>
+   </LinearLayout>
+</RelativeLayout>
+
+    <!--Developed by AbhiAndroid.com-->

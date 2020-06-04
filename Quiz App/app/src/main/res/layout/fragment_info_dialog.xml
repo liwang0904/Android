@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppTheme.MyTheme.Cordinates_Length.MM"
+    android:gravity="center"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:id="@+id/header_panel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@color/colorPrimary"
+        >
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:src="@drawable/back_icon2"
+            />
+        <com.abhiandroid.quizgameapp.views.AllerRegularTextView
+            style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+            android:text="@string/info"
+            android:textColor="@android:color/white"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        style="@style/AppTheme.MyTheme.Cordinates_Length.MM"
+        android:padding="@dimen/_10sdp"
+        android:gravity="center_horizontal"
+        >
+        <WebView
+            android:id="@+id/info_rules"
+            style="@style/AppTheme.MyTheme.Cordinates_Length.MW"
+            android:textColor="@color/dialog_bg_color"
+
+            />
+      
+    </RelativeLayout>
+
+</LinearLayout>
+
+    <!--Developed by AbhiAndroid.com-->

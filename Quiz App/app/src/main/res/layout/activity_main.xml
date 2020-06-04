@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="my_obj" type="com.abhiandroid.quizgameapp.activity.Home_Activity"/>
+    </data>
+<LinearLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home_Activity"
+    android:orientation="vertical"
+    android:background="@drawable/splashscreen_background">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="bottom|center_horizontal"
+        android:layout_weight="6"
+        android:layout_centerInParent="true">
+
+
+        <ImageView
+            style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+            android:src="@drawable/quizsplashicon"
+            />
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp" />
+        <ImageView
+            style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+            android:src="@drawable/quizapp_text"/>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp" />
+
+        <com.abhiandroid.quizgameapp.views.AllerRegularTextView
+            android:id="@+id/tv_take_quiz"
+            style="@style/AppTheme.MyTheme.Cordinates_Length.MW"
+            android:text="@string/take_quiz"
+            android:paddingTop="@dimen/_15sdp"
+            android:paddingBottom="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:onClick="takeQuiz"
+            android:letterSpacing="0.2"
+            android:textSize="@dimen/_17sdp"
+            android:gravity="center"
+            android:background="@drawable/ripple_effect_btn_shape"
+            android:textColor="@android:color/white"/>
+
+        <!--android:background="@drawable/btn_shape_app_theme_clr"-->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/_50sdp"
+        >
+        <ImageView
+            android:id="@+id/tv_fb_login"
+            style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:onClick="fbLogin"
+            android:src="@drawable/fb_login"
+            />
+        <Space
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/tv_google_login"
+        style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:onClick="g_Login"
+        android:src="@drawable/google_login"
+       />
+    </LinearLayout>
+</LinearLayout>
+</layout>
+
+    <!--Developed by AbhiAndroid.com-->

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_login"
+            android:checked="true"
+            android:title="@string/login"
+            android:icon="@drawable/login_icon"/>
+
+    </group>
+    <group
+        android:id="@+id/menu_middle"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:title="@string/profile"
+            android:icon="@drawable/profile_icon"/>
+        <item
+            android:id="@+id/nav_favourite"
+            android:title="@string/favorite"
+            android:icon="@drawable/followed_icon"/>
+        <item
+            android:id="@+id/nav_leaderboard"
+            android:title="@string/leaderboard"
+            android:icon="@drawable/leaderboard_icon"/>
+    </group>
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_faq"
+            android:title="@string/faq"
+            android:icon="@drawable/faq_icon"/>
+        <item
+            android:id="@+id/nav_setting"
+            android:title="@string/setting"
+            android:icon="@drawable/setting_icon"/>
+    </group>
+    <group
+
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_feedback"
+            android:title="@string/feedback"
+            />
+        <item
+            android:id="@+id/nav_rateapp"
+            android:title="@string/rate_app"
+            />
+
+        <item
+            android:id="@+id/nav_terms"
+            android:title="@string/terms_condition"
+            />
+        <!--<item
+            android:id="@+id/nav_logout"
+            android:title="@string/logout"
+          />
+-->
+    </group>
+</menu>

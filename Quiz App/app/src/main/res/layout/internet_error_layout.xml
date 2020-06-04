@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/AppTheme.MyTheme.Cordinates_Length.MM"
+        android:orientation="vertical"
+        android:padding="@dimen/_20sdp"
+        android:background="@android:color/white"
+        android:gravity="center">
+        <ImageView
+            style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+            android:id="@+id/internet_error"
+            android:layout_centerInParent="true"
+            android:src="@drawable/internet_error_icon"/>
+        <com.abhiandroid.quizgameapp.views.AllerRegularTextView
+            style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+            android:textColor="@color/dialog_bg_color"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/internet_error"/>
+        <com.abhiandroid.quizgameapp.views.AllerRegularTextView
+            android:id="@+id/try_again"
+            style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+            android:textColor="@android:color/holo_blue_dark"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/try_again"/>
+    </LinearLayout>
+
+    <!--Developed by AbhiAndroid.com-->

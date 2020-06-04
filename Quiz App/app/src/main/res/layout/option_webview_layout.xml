@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/option_bg_image"
+        android:gravity="center"
+
+       >
+    <ImageView
+        android:id="@+id/temp_bg_frame"
+        android:layout_width="match_parent"
+        android:background="@drawable/option_bg_image"
+        android:layout_height="match_parent"/>
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="MS Dhoni"
+            android:layout_margin="@dimen/_2sdp"
+            android:gravity="center"
+            android:background="@android:color/transparent"
+            android:layout_centerInParent="true"
+            android:scrollbars="none"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/colorPrimary"
+
+            />
+    </RelativeLayout>
+
+    <!--Developed by AbhiAndroid.com-->

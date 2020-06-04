@@ -1,0 +1,7 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <bitmap
+            android:src="@drawable/right_arrow"
+            android:tint="@color/colorPrimary"/>
+    </item>
+</layer-list>

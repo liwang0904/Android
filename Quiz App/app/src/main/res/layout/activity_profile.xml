@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="category" type="com.abhiandroid.quizgameapp.activity.ProfileActivity"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/play_quiz_bg_color"
+        tools:context=".activity.PlayQuizActivity">
+        <RelativeLayout
+            android:id="@+id/header_panel"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/colorPrimary"
+            >
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:onClick="goBack"
+                android:src="@drawable/back_icon2"
+                />
+            <com.abhiandroid.quizgameapp.views.AllerRegularTextView
+                android:id="@+id/tv_usernamename"
+                style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+                android:textColor="@android:color/white"
+                android:layout_centerInParent="true"
+                />
+            <com.abhiandroid.quizgameapp.views.AllerRegularTextView
+                android:id="@+id/tv_logout"
+                style="@style/AppTheme.MyTheme.Cordinates_Length.WM"
+                android:textColor="@android:color/white"
+                android:text="@string/logout"
+               android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:onClick="logout"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/footer_panel"
+           style="@style/AppTheme.MyTheme.Cordinates_Length.MW"
+            android:background="@android:color/white"
+            android:layout_alignParentBottom="true">
+            <com.abhiandroid.quizgameapp.views.MyAdView
+                style="@style/AppTheme.MyTheme.Cordinates_Length.MW"
+                ></com.abhiandroid.quizgameapp.views.MyAdView>
+        </RelativeLayout>
+        <LinearLayout
+            style="@style/AppTheme.MyTheme.Cordinates_Length.MM"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_profile_img"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_120sdp"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_centerHorizontal="true"
+                app:riv_border_width="@dimen/_2sdp"
+                android:src="@drawable/login_required"
+                app:riv_oval="true"
+                app:riv_border_color="@android:color/white"
+               />
+            <LinearLayout
+               style="@style/AppTheme.MyTheme.Cordinates_Length.MW"
+                android:background="@android:color/white"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:padding="@dimen/_5sdp"
+                android:orientation="vertical">
+                <com.abhiandroid.quizgameapp.views.AllerRegularTextView
+
+                    style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+                    android:text="@string/user_name"
+                    android:textColor="@color/colorPrimary"/>
+                <com.abhiandroid.quizgameapp.views.AllerRegularTextView
+                    android:id="@+id/username"
+                    style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+                    android:textColor="@color/dialog_bg_color"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                style="@style/AppTheme.MyTheme.Cordinates_Length.MW"
+                android:background="@android:color/white"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:padding="@dimen/_5sdp"
+                android:orientation="vertical">
+                <com.abhiandroid.quizgameapp.views.AllerRegularTextView
+
+                    style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+                    android:text="@string/email"
+                    android:textColor="@color/colorPrimary"/>
+                <com.abhiandroid.quizgameapp.views.AllerRegularTextView
+                    android:id="@+id/email"
+                    style="@style/AppTheme.MyTheme.Cordinates_Length.WW"
+                    android:textColor="@color/dialog_bg_color"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
+
+    <!--Developed by AbhiAndroid.com-->

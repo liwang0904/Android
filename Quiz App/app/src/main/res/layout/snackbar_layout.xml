@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary">
+<com.abhiandroid.quizgameapp.views.AllerRegularTextView
+    android:id="@+id/message"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Hi This is dummy text."
+    android:textColor="@android:color/white"
+    android:padding="@dimen/_10sdp"
+    android:gravity="center_vertical"/>
+</LinearLayout>
+
+    <!--Developed by AbhiAndroid.com-->
