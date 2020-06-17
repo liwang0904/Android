@@ -1,190 +1,96 @@
 package com.example.popularmovies1;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.JSONException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-
 public class MainActivity extends AppCompatActivity {
 
-    SharedPreferences sharedPreferences;
-
-    ArrayList<String> posters;
-    ArrayList<Integer> ids;
-
-    String sort_type;
-
-    GridView gridView;
-    ImageAdapter imageAdapter;
-
-    FetchMovies fetchMovies;
-
-    String api_key = "33794c1f64d8154fab6ffab92de21f27";
-
-    public class FetchMovies extends AsyncTask<String, Void, Void> {
-
-        @Override
-        protected Void doInBackground(String... params) {
-
-            HttpURLConnection urlConnection = null;
-            BufferedReader reader = null;
-            String moviesJsonStr;
-
-            posters = new ArrayList<>();
-            ids = new ArrayList<>();
-
-            try {
-                String base_url = "https://api.themoviedb.org/3/movie/";
-                URL url = new URL(base_url + params[0] + "?api_key=" + api_key);
-
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
-
-                InputStream inputStream = urlConnection.getInputStream();
-                StringBuilder builder = new StringBuilder();
-                if(inputStream == null) {
-                    return null;
-                }
-
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-                String line;
-                while((line = reader.readLine()) != null) {
-                    builder.append(line).append("\n");
-                }
-
-                if(builder.length() == 0) {
-                    return null;
-                }
-
-                moviesJsonStr = builder.toString();
-
-                JSONObject main = new JSONObject(moviesJsonStr);
-                JSONArray array = main.getJSONArray("results");
-                JSONObject movie;
-                for (int i = 0; i < array.length(); i++) {
-                    movie = array.getJSONObject(i);
-                    ids.add(movie.getInt("id"));
-                    posters.add(movie.getString("poster_path"));
-                }
-
-            } catch(Exception e){
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            imageAdapter = new ImageAdapter(MainActivity.this, posters);
-            gridView.setAdapter(imageAdapter);
-        }
-    }
+    private ArrayList<Movie> mMovies;
+    private int typeOfMovies = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startAsyncTask(typeOfMovies);
+    }
 
-        gridView = findViewById(R.id.grid_view);
-
-        sharedPreferences = getSharedPreferences("popular_movies", MODE_PRIVATE);
-        sort_type = sharedPreferences.getString("sort_type", "popular");
-
-        if (sort_type.equals("popular")) {
-            getSupportActionBar().setTitle(R.string.app_name);
-        } else if (sort_type.equals("top_rated")) {
-            getSupportActionBar().setTitle(R.string.top_rated);
-        }
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra("Movie ID", ids.get(i));
-                intent.putExtra("Poster", posters.get(i));
-                startActivity(intent);
-            }
-        });
-
-        fetchMovies = new FetchMovies();
-        fetchMovies.execute(sort_type);
+    private void startAsyncTask(int typeOfMovies) {
+        URL url = NetworkUtils.buildUrl(typeOfMovies);
+        new MovieApiPosterTask().execute(url);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_sort_settings) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            final SharedPreferences.Editor editor = sharedPreferences.edit();
-            int selected = 0;
+        if (item.getItemId() == R.id.sort_popular) {
+            typeOfMovies = 1;
+        } else if (item.getItemId() == R.id.sort_top_rated) {
+            typeOfMovies = 2;
+        }
 
-            sort_type = sharedPreferences.getString("sort_type", "popular");
-            if (sort_type.equals("popular")) {
-            } else if (sort_type.equals("top_rated")) {
-                selected = 1;
+        startAsyncTask(typeOfMovies);
+        setUpRecyclerView();
+        return true;
+    }
+
+    private void setUpRecyclerView() {
+        RecyclerView recyclerView = findViewById(R.id.recyclerview_movies);
+        GridLayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 2);
+        recyclerView.setLayoutManager(layoutManager);
+
+        MovieAdapter movieAdapter = new MovieAdapter(this, mMovies);
+        recyclerView.setAdapter(movieAdapter);
+    }
+
+    class MovieApiPosterTask extends AsyncTask<URL, ArrayList<Movie>, ArrayList<Movie>> {
+        MovieApiPosterTask() {}
+
+        @Override
+        protected ArrayList<Movie> doInBackground(URL... urls) {
+            URL url = urls[0];
+            String movieResults = null;
+            ArrayList<Movie> movies = null;
+
+            try {
+                movieResults = NetworkUtils.getResponse(url);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-            builder.setTitle(R.string.dialog_title);
-            builder.setSingleChoiceItems(R.array.sort_types, selected, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    if (i == 0) {
-                        editor.putString("sort_type", "popular");
-                    } else if (i == 1) {
-                        editor.putString("sort_type", "top_rated");
-                    }
-                }
-            });
+            try {
+                movies = MovieJsonUtils.getMoviesFromJson(movieResults);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-            builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    editor.apply();
-                }
-            });
-
-            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialogInterface) {
-                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-                    startActivity(intent);
-                }
-            });
-
-            AlertDialog dialog = builder.create();
-            dialog.show();
+            return movies;
         }
-        return super.onOptionsItemSelected(item);
+
+        @Override
+        protected void onPostExecute(ArrayList<Movie> movies) {
+            mMovies = movies;
+            setUpRecyclerView();
+        }
     }
 }
