@@ -13,6 +13,10 @@
 
     <!-- Views for displaying colors -->
     <!-- TODO (3) Add a view to display the newly created "colorPrimaryLight"; layout height = 48dp -->
+    <View android:id="@+id/primaryLight"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimaryLight" />
 
     <View android:id="@+id/primary"
         android:layout_width="match_parent"
@@ -73,6 +77,12 @@
         android:fontFamily="sans-serif-medium"/>
 
     <!-- TODO (4) Add a text view to display text with a size = 16sp, and a font-family = sans-serif-smallcaps -->
-
+    <TextView
+        android:id="@+id/text16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/smallcaps_16"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-smallcaps"/>
 
 </LinearLayout>

@@ -44,4 +44,8 @@ public class ReminderTasks {
     // increment the charging reminder count (hint: there is a method for this in PreferenceUtilities)
     // When finished, you should be able to call executeTask with the correct parameters to execute
     // this task. Don't forget to add the code to executeTask which actually calls your new task!
+    private static void issueChargingReminder(Context context) {
+        PreferenceUtilities.incrementChargingReminderCount(context);
+        NotificationUtils.remindUserBecauseCharging(context);
+    }
 }

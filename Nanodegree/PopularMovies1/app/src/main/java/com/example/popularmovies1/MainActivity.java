@@ -5,11 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 
 import org.json.JSONException;
 
@@ -17,16 +26,48 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import am.appwise.components.ni.NoInternetDialog;
+
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Movie> mMovies;
     private int typeOfMovies = 1;
+//    NoInternetDialog noInternetDialog;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        startAsyncTask(typeOfMovies);
+
+        context = this;
+        final Dialog dialog = new Dialog(context);
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        final NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo == null || !networkInfo.isConnected() || !networkInfo.isAvailable()) {
+            dialog.setContentView(R.layout.alert_dialog);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
+
+            Button button = dialog.findViewById(R.id.button_retry);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (networkInfo == null || !networkInfo.isConnected() || !networkInfo.isAvailable()) {
+                        recreate();
+                    }
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        } else {
+//        noInternetDialog = new NoInternetDialog.Builder(this).build();
+            setContentView(R.layout.activity_main);
+            startAsyncTask(typeOfMovies);
+        }
     }
 
     private void startAsyncTask(int typeOfMovies) {
@@ -92,5 +133,11 @@ public class MainActivity extends AppCompatActivity {
             mMovies = movies;
             setUpRecyclerView();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        noInternetDialog.onDestroy();
     }
 }

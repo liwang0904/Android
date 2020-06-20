@@ -75,13 +75,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
     private void setPreferenceSummary(Preference preference, String value) {
         // TODO (3) Don't forget to add code here to properly set the summary for an EditTextPreference
         if (preference instanceof ListPreference) {
-            // For list preferences, figure out the label of the selected value
             ListPreference listPreference = (ListPreference) preference;
             int prefIndex = listPreference.findIndexOfValue(value);
             if (prefIndex >= 0) {
-                // Set the summary to that label
                 listPreference.setSummary(listPreference.getEntries()[prefIndex]);
             }
+        } else if (preference instanceof EditTextPreference) {
+            preference.setSummary(value);
         }
     }
     

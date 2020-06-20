@@ -12,9 +12,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import am.appwise.components.ni.NoInternetDialog;
+
 public class DetailActivity extends AppCompatActivity {
 
     private Movie movie;
+    NoInternetDialog noInternetDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,8 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void setViews() {
+        noInternetDialog = new NoInternetDialog.Builder(this).build();
+
         TextView title = findViewById(R.id.title);
         title.setText(movie.getTitle());
 
@@ -44,5 +49,11 @@ public class DetailActivity extends AppCompatActivity {
 
         TextView synopsis = findViewById(R.id.synopsis);
         synopsis.setText(movie.getOverview());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        noInternetDialog.onDestroy();
     }
 }

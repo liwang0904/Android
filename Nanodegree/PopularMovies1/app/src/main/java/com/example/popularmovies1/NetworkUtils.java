@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class NetworkUtils {
-    private final static String API_KEY = "33794c1f64d8154fab6ffab92de21f27";
+    private final static String API_KEY = "put_your_api_key_here";
     private final static String POPULAR_BASE_URL = "https://api.themoviedb.org/3/movie/popular";
     private final static String TOP_RATED_BASE_URL = "https://api.themoviedb.org/3/movie/top_rated";
 
