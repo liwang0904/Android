@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Popular Movies 2</string>
+    <string name="action_sort_by_rate">Sort by rate</string>
+    <string name="action_sort_by_popularity">Sort by popularity</string>
+    <string name="tv_title">Title: &#160;</string>
+    <string name="tv_release_date">Release date: &#160;</string>
+    <string name="tv_description">Description: &#160;</string>
+    <string name="tv_users_rating">Users rating: &#160;</string>
+
+    <string name="tv_reviews_title">Reviews</string>
+    <string name="tv_videos_title">Videos</string>
+    <string name="action_add_to_favorites">Add to favorites</string>
+    <string name="action_delete_from_favorites">Delete from favorites</string>
+    <string name="action_show_favorites">Show favorites</string>
+</resources>
