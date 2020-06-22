@@ -22,7 +22,7 @@ import com.example.popularmovies2.databinding.ActivityMainBinding;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity implements PosterAdapter.PosterAdapterOnClickHandler {
-    private final String API_KEY = "33794c1f64d8154fab6ffab92de21f27";
+    private final String API_KEY = "put_your_api_key_here";
 
     private static final String SORT_POPULAR = "popular";
     private static final String SORT_TOP_RATED = "top_rated";
