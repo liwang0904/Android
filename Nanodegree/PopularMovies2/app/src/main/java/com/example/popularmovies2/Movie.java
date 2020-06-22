@@ -3,30 +3,23 @@ package com.example.popularmovies2;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-class Movie implements Parcelable {
+public class Movie implements Parcelable {
+    String title;
+    String overview;
+    String posterUrl;
+    String userRating;
+    String releaseDate;
+    String id;
 
-    private String poster_path = null;
-    private String title;
-    private String id;
-    private String release_date;
-    private String users_rating;
-    private String description;
+    public Movie() {}
 
-    Movie(String poster_path, String title, String id, String release_date, String users_rating, String description) {
-        this.poster_path = poster_path;
-        this.title = title;
-        this.id = id;
-        this.release_date = release_date;
-        this.users_rating = users_rating;
-        this.description = description;
-    }
-
-    public String getPoster_path() {
-        return poster_path;
-    }
-
-    public void setPoster_path(String poster_path) {
-        this.poster_path = poster_path;
+    private Movie(Parcel in) {
+        title = in.readString();
+        overview = in.readString();
+        posterUrl = in.readString();
+        userRating = in.readString();
+        releaseDate = in.readString();
+        id = in.readString();
     }
 
     public String getTitle() {
@@ -37,6 +30,38 @@ class Movie implements Parcelable {
         this.title = title;
     }
 
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getPosterUrl() {
+        return posterUrl;
+    }
+
+    public void setPosterUrl(String posterUrl) {
+        this.posterUrl = posterUrl;
+    }
+
+    public String getUserRating() {
+        return userRating;
+    }
+
+    public void setUserRating(String userRating) {
+        this.userRating = userRating;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
     public String getId() {
         return id;
     }
@@ -45,55 +70,7 @@ class Movie implements Parcelable {
         this.id = id;
     }
 
-    public String getRelease_date() {
-        return release_date;
-    }
-
-    public void setRelease_date(String release_date) {
-        this.release_date = release_date;
-    }
-
-    public String getUsers_rating() {
-        return users_rating;
-    }
-
-    public void setUsers_rating(String users_rating) {
-        this.users_rating = users_rating;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    protected Movie(Parcel in) {
-        poster_path = in.readString();
-        title = in.readString();
-        id = in.readString();
-        release_date = in.readString();
-        users_rating = in.readString();
-        description = in.readString();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(poster_path);
-        dest.writeString(title);
-        dest.writeString(id);
-        dest.writeString(release_date);
-        dest.writeString(users_rating);
-        dest.writeString(description);
-    }
-
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
         @Override
         public Movie createFromParcel(Parcel in) {
             return new Movie(in);
@@ -104,4 +81,19 @@ class Movie implements Parcelable {
             return new Movie[size];
         }
     };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(title);
+        parcel.writeString(overview);
+        parcel.writeString(posterUrl);
+        parcel.writeString(userRating);
+        parcel.writeString(releaseDate);
+        parcel.writeString(id);
+    }
 }

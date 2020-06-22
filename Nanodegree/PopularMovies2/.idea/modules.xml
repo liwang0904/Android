@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PopularMovies2.iml" filepath="$PROJECT_DIR$/.idea/modules/PopularMovies2.iml" group="PopularMovies2" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PopularMovies2-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PopularMovies2-app.iml" group="PopularMovies2/app" />
-      <module fileurl="file://$PROJECT_DIR$/PopularMoviesDemo.iml" filepath="$PROJECT_DIR$/PopularMoviesDemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Popular_Movies_2.iml" filepath="$PROJECT_DIR$/.idea/modules/Popular_Movies_2.iml" group="Popular_Movies_2" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="Popular Movies 2/app" />
     </modules>
   </component>
 </project>

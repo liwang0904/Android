@@ -1,245 +1,173 @@
 package com.example.popularmovies2;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.database.Cursor;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.net.MalformedURLException;
+import com.example.popularmovies2.databinding.ActivityMainBinding;
+
 import java.net.URL;
-import java.util.ArrayList;
 
+public class MainActivity extends AppCompatActivity implements PosterAdapter.PosterAdapterOnClickHandler {
+    private final String API_KEY = "33794c1f64d8154fab6ffab92de21f27";
 
-public class MainActivity extends AppCompatActivity {
-    private ArrayList<Movie> arrayList;
-    private GridView gridView;
-    private ProgressBar mProgressBar;
-    private String TAG = MainActivity.class.getSimpleName();
-    private String sortBy = "";
-    private String poster_path, title, release_date, description, users_rating, movie_id;
-    private int index = 0;
+    private static final String SORT_POPULAR = "popular";
+    private static final String SORT_TOP_RATED = "top_rated";
+    public static final String SORT_FAVORITE = "favorites";
+    private String sortType;
+
+    ActivityMainBinding mBinding;
+
+    private RecyclerView mRecyclerView;
+    private TextView tvErrorMessage;
+    private ProgressBar pbLoading;
+
+    private PosterAdapter mPosterAdapter;
+
+    private Movie[] movies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        arrayList = new ArrayList<>();
-        gridView = (GridView) findViewById(R.id.gridView);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        mRecyclerView = mBinding.rvPosters;
+        tvErrorMessage = mBinding.tvErrorMessage;
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
+        mPosterAdapter = new PosterAdapter(this);
+        mRecyclerView.setAdapter(mPosterAdapter);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-
-        if (savedInstanceState != null) {
-            arrayList = savedInstanceState.getParcelableArrayList("key");
-            show_details(index);
+        pbLoading = mBinding.pbLoading;
+        sortType = SORT_POPULAR;
+        if (savedInstanceState == null) {
+            loadPosters(sortType);
         } else {
-            if (AppStatus.getInstance(this).isOnline()) {
-                action_show_popular();
-            } else {
-                action_show_favorites();
-            }
+            movies = (Movie[]) savedInstanceState.getParcelableArray("movies");
+            mPosterAdapter.setPosterData(movies);
         }
-    }
-
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putParcelableArrayList("key", arrayList);
-        index = gridView.getFirstVisiblePosition();
-        super.onSaveInstanceState(savedInstanceState);
-    }
-
-    private class GetMovies extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mProgressBar.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            HttpHandler sh = new HttpHandler();
-            Uri uri = Uri.parse(ApiRequest.API_URL + sortBy).buildUpon()
-                    .appendQueryParameter("api_key", ApiRequest.API_KEY)
-                    .build();
-            URL url;
-            String jsonStr = null;
-            try {
-                url = new URL(uri.toString());
-                jsonStr = sh.makeServiceCall(url);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-
-            Log.e(TAG, "Response from url: " + jsonStr);
-
-            if (jsonStr != null) {
-                try {
-                    JSONObject jsonObject = new JSONObject(jsonStr);
-                    JSONArray movies = jsonObject.getJSONArray("results");
-                    for (int i = 0; i < movies.length(); i++) {
-                        JSONObject m = movies.getJSONObject(i);
-                        arrayList.add(new Movie(
-                                m.getString("poster_path"),
-                                m.getString("title"),
-                                m.getString("id"),
-                                m.getString("release_date"),
-                                m.getString("vote_average"),
-                                m.getString("overview")
-                        ));
-                    }
-                } catch (final JSONException e) {
-                    Log.e(TAG, "Json parsing error: " + e.getMessage());
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(), "Json parsing error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-            } else {
-                Log.e(TAG, "Couldn't get json from server.");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "Couldn't get json from server. Maybe your internet is not working!", Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            mProgressBar.setVisibility(View.INVISIBLE);
-            show_details(0);
-        }
-    }
-
-    public void show_details(int mIndex) {
-        CustomGridAdapter adapter = new CustomGridAdapter(
-                getApplicationContext(), R.layout.grid_item, arrayList
-        );
-        gridView.setAdapter(adapter);
-        gridView.setSelection(mIndex);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-                Movie movie = arrayList.get(position);
-                Intent intent = new Intent("android.intent.action.DETAILSACTIVITY");
-
-                title = movie.getTitle();
-                poster_path = movie.getPoster_path();
-                description = movie.getDescription();
-                users_rating = movie.getUsers_rating();
-                release_date = movie.getRelease_date();
-                movie_id = movie.getId();
-
-                intent.putExtra("title", title);
-                intent.putExtra("poster", poster_path);
-                intent.putExtra("description", description);
-                intent.putExtra("release_date", release_date);
-                intent.putExtra("users_rating", users_rating);
-                intent.putExtra("id", movie_id);
-
-                startActivity(intent);
-
-            }
-        });
-    }
-
-    public boolean action_show_favorites() {
-        mProgressBar.setVisibility(View.INVISIBLE);
-        sortBy = "";
-        arrayList.clear();
-        DatabaseHandler db = new DatabaseHandler(this);
-        arrayList = db.getAllMovies();
-
-        show_details(0);
-
-        Toast.makeText(getApplicationContext(), "Showing favorites", Toast.LENGTH_LONG).show();
-        return true;
-    }
-
-    public boolean action_show_popular() {
-        if (!sortBy.equals("popular")) {
-            sortBy = "popular";
-            arrayList.clear();
-            new GetMovies().execute();
-            Toast.makeText(getApplicationContext(), "Searching for popular movies!", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "You are already in popular!", Toast.LENGTH_LONG).show();
-        }
-        return true;
-    }
-
-    public boolean action_show_rate() {
-
-        if (!sortBy.equals("top_rated")) {
-            sortBy = "top_rated";
-            arrayList.clear();
-            new GetMovies().execute();
-            Toast.makeText(getApplicationContext(), "Searching for top rated movies!", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "You are already in top rated!", Toast.LENGTH_LONG).show();
-        }
-        return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_show_favorites:
-                action_show_favorites();
-                return true;
-            case R.id.action_sort_by_popularity:
-                if (AppStatus.getInstance(this).isOnline()) {
-                    action_show_popular();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Please connect to the internet!", Toast.LENGTH_LONG).show();
-                }
-                return true;
-            case R.id.action_sort_by_rate:
-                if (AppStatus.getInstance(this).isOnline()) {
-                    action_show_rate();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Please connect to the internet!", Toast.LENGTH_LONG).show();
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    public void onClick(Movie movie) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("movie", movie);
+        intent.putExtra("base_url", PosterAdapter.BASE_URL);
+        intent.putExtra("poster_size", PosterAdapter.POSTER_SIZE);
+        intent.putExtra("api_key", API_KEY);
+        intent.putExtra("sort_type", sortType);
+        startActivity(intent);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.items, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
-        if (sortBy.equals("")) {
-            action_show_favorites();
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.sort_popular) {
+            sortType = SORT_POPULAR;
+        } else if (item.getItemId() == R.id.sort_top_rated) {
+            sortType = SORT_TOP_RATED;
+        } else if (item.getItemId() == R.id.sort_favorite) {
+            sortType = SORT_FAVORITE;
+        }
+        loadPosters(sortType);
+        return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArray("movies", movies);
+    }
+
+    private void loadPosters(String sortType) {
+        tvErrorMessage.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+        if (sortType.equals(SORT_FAVORITE)) {
+            getFavoritePosters();
+        } else {
+            new GetPosters().execute(sortType);
+        }
+    }
+
+    public void getFavoritePosters() {
+        Cursor cursor = getContentResolver().query(FavoritesContract.Favorite.CONTENT_URI, null, null, null, null);
+        if (cursor == null || cursor.getCount() == 0) {
+            mRecyclerView.setVisibility(View.INVISIBLE);
+            tvErrorMessage.setText("You haven't favorited any movies yet!");
+            tvErrorMessage.setVisibility(View.VISIBLE);
+        } else {
+            movies = new Movie[cursor.getCount()];
+            int index = 0;
+            while (cursor.moveToNext()) {
+                Movie movie = new Movie();
+                movie.setTitle(cursor.getString(cursor.getColumnIndex(FavoritesContract.Favorite.COLUMN_TITLE)));
+                movie.setOverview(cursor.getString(cursor.getColumnIndex(FavoritesContract.Favorite.COLUMN_OVERVIEW)));
+                movie.setPosterUrl(cursor.getString(cursor.getColumnIndex(FavoritesContract.Favorite.COLUMN_POSTER_URL)));
+                movie.setUserRating(cursor.getString(cursor.getColumnIndex(FavoritesContract.Favorite.COLUMN_USER_RATING)));
+                movie.setReleaseDate(cursor.getString(cursor.getColumnIndex(FavoritesContract.Favorite.COLUMN_RELEASE_DATE)));
+                movie.setId(cursor.getString(cursor.getColumnIndex(FavoritesContract.Favorite.COLUMN_ID)));
+                movies[index] = movie;
+                index++;
+            }
+            mPosterAdapter.setPosterData(movies);
+        }
+        cursor.close();
+    }
+
+    public class GetPosters extends AsyncTask<String, Void, Movie[]> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pbLoading.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Movie[] doInBackground(String... strings) {
+            String sortType = strings[0];
+            URL posterUrl = NetworkUtils.buildUrl(sortType, API_KEY);
+            try {
+                String JSONResponse = NetworkUtils.getResponseFromHttpUrl(posterUrl);
+                return JSONUtils.getPosters(JSONResponse);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Movie[] moviesList) {
+            pbLoading.setVisibility(View.INVISIBLE);
+            if (moviesList != null) {
+                movies = moviesList;
+                tvErrorMessage.setVisibility(View.INVISIBLE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+                mPosterAdapter.setPosterData(movies);
+            } else {
+                mRecyclerView.setVisibility(View.INVISIBLE);
+                tvErrorMessage.setText("Please check your internet connection and try again.");
+                tvErrorMessage.setVisibility(View.VISIBLE);
+            }
         }
     }
 }
