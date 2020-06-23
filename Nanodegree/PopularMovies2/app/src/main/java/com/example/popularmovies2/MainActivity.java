@@ -14,12 +14,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.popularmovies2.Database.MovieViewModel;
 import com.example.popularmovies2.databinding.ActivityMainBinding;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements PosterAdapter.PosterAdapterOnClickHandler {
     private final String API_KEY = "put_your_api_key_here";
@@ -59,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
             loadPosters(sortType);
         } else {
             movies = (Movie[]) savedInstanceState.getParcelableArray("movies");
-            mPosterAdapter.setPosterData(movies);
+            mPosterAdapter.setPosterData(Arrays.asList(movies));
         }
     }
 
@@ -111,28 +116,15 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
     }
 
     public void getFavoritePosters() {
-        Cursor cursor = getContentResolver().query(FavoritesContract.Favorite.CONTENT_URI, null, null, null, null);
-        if (cursor == null || cursor.getCount() == 0) {
-            mRecyclerView.setVisibility(View.INVISIBLE);
-            tvErrorMessage.setText("You haven't favorited any movies yet!");
-            tvErrorMessage.setVisibility(View.VISIBLE);
-        } else {
-            movies = new Movie[cursor.getCount()];
-            int index = 0;
-            while (cursor.moveToNext()) {
-                Movie movie = new Movie();
-                movie.setTitle(cursor.getString(cursor.getColumnIndex(FavoritesContract.Favorite.COLUMN_TITLE)));
-                movie.setOverview(cursor.getString(cursor.getColumnIndex(FavoritesContract.Favorite.COLUMN_OVERVIEW)));
-                movie.setPosterUrl(cursor.getString(cursor.getColumnIndex(FavoritesContract.Favorite.COLUMN_POSTER_URL)));
-                movie.setUserRating(cursor.getString(cursor.getColumnIndex(FavoritesContract.Favorite.COLUMN_USER_RATING)));
-                movie.setReleaseDate(cursor.getString(cursor.getColumnIndex(FavoritesContract.Favorite.COLUMN_RELEASE_DATE)));
-                movie.setId(cursor.getString(cursor.getColumnIndex(FavoritesContract.Favorite.COLUMN_ID)));
-                movies[index] = movie;
-                index++;
+        MovieViewModel movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+        movieViewModel.getFavoriteMovieList().observe(this, new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(List<Movie> favoriteMovieList) {
+                movies = favoriteMovieList.toArray(new Movie[0]);
+                mPosterAdapter.notifyDataSetChanged();
+                mPosterAdapter.setPosterData(favoriteMovieList);
             }
-            mPosterAdapter.setPosterData(movies);
-        }
-        cursor.close();
+        });
     }
 
     public class GetPosters extends AsyncTask<String, Void, Movie[]> {
@@ -162,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements PosterAdapter.Pos
                 movies = moviesList;
                 tvErrorMessage.setVisibility(View.INVISIBLE);
                 mRecyclerView.setVisibility(View.VISIBLE);
-                mPosterAdapter.setPosterData(movies);
+                mPosterAdapter.setPosterData(Arrays.asList(movies));
             } else {
                 mRecyclerView.setVisibility(View.INVISIBLE);
                 tvErrorMessage.setText("Please check your internet connection and try again.");

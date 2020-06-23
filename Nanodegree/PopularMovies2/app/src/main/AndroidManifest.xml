@@ -22,9 +22,5 @@
             </intent-filter>
         </activity>
 
-        <provider
-            android:name=".DatabaseContentProvider"
-            android:authorities="com.example.popularmovies2"
-            android:exported="false" />
     </application>
 </manifest>

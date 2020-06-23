@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterAdapterViewHolder> {
     public static final String BASE_URL = "http://image.tmdb.org/t/p/";
     public static final String POSTER_SIZE = "w185/";
@@ -66,8 +68,8 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.PosterAdap
         return movies.length;
     }
 
-    public void setPosterData(Movie[] moviesList) {
-        movies = moviesList;
+    public void setPosterData(List<Movie> moviesList) {
+        movies = moviesList.toArray(new Movie[0]);
         notifyDataSetChanged();
     }
 }

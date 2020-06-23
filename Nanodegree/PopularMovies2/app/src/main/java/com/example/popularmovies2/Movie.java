@@ -3,12 +3,27 @@ package com.example.popularmovies2;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "movie_table")
 public class Movie implements Parcelable {
     String title;
     String overview;
     String posterUrl;
     String userRating;
     String releaseDate;
+    boolean isFavorite = false;
+    public void setFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
+    }
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    @PrimaryKey
+    @NonNull
     String id;
 
     public Movie() {}

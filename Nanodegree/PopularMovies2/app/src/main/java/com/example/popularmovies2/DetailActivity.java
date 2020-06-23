@@ -2,6 +2,8 @@ package com.example.popularmovies2;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.popularmovies2.Database.MovieRoomDatabase;
+import com.example.popularmovies2.Database.MovieViewModel;
 import com.example.popularmovies2.databinding.ActivityDetailBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
@@ -35,6 +39,10 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
     private ProgressBar pbLoading;
     private FloatingActionButton favoriteButton;
     private boolean favorite = false;
+
+    private MovieRoomDatabase database;
+
+    private Movie movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +69,17 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         mReviewAdapter = new ReviewAdapter();
         mReviewRecyclerView.setAdapter(mReviewAdapter);
 
+        database = MovieRoomDatabase.getDatabase(getApplicationContext());
+
+        final MovieViewModel movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+
         Intent intent = getIntent();
         if (intent.hasExtra("movie")) {
-            final Movie movie = intent.getParcelableExtra("movie");
+            movie = intent.getParcelableExtra("movie");
             String baseUrl = intent.getStringExtra("base_url");
             String posterSize = intent.getStringExtra("poster_size");
             String sortType = intent.getStringExtra("sort_type");
-            if (sortType.equals(MainActivity.SORT_FAVORITE) || isFavorite(movie.getId())) {
+            if (sortType.equals(MainActivity.SORT_FAVORITE) || movie.isFavorite()) {
                 favorite = true;
             }
             setFavoriteButton(favorite);
@@ -76,11 +88,14 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
                 @Override
                 public void onClick(View view) {
                     if (favorite) {
+                        movieViewModel.delete(movie);
                         Toast.makeText(DetailActivity.this, movie.getTitle() + " was removed to you favorites.", Toast.LENGTH_SHORT).show();
                     } else {
-                        new SetAsFavorite().execute(movie);
+                        movieViewModel.insert(movie);
+                        Toast.makeText(DetailActivity.this, movie.getTitle() + " was added to you favorites.", Toast.LENGTH_SHORT).show();
                     }
                     favorite = !favorite;
+                    movie.setFavorite(favorite);
                     setFavoriteButton(favorite);
                 }
             });
@@ -107,21 +122,21 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         }
     }
 
-    private void setFavoriteButton(boolean favorite) {
-        if (!favorite) {
-            favoriteButton.setImageResource(R.drawable.ic_unfavorite);
-        } else {
-            favoriteButton.setImageResource(R.drawable.ic_favorite);
-        }
-    }
-
-    private boolean isFavorite(String id) {
-        String mSelectionClause = FavoritesContract.Favorite.COLUMN_ID + " = ?";
-        String[] mSelectionArgs = {id};
-        Cursor cursor = getContentResolver().query(FavoritesContract.Favorite.CONTENT_URI, null, mSelectionClause, mSelectionArgs, null);
-        boolean isFavorite = (cursor != null && cursor.getCount() == 1);
-        cursor.close();
-        return isFavorite;
+    private void setFavoriteButton(final boolean favorite) {
+        DetailViewModelFactory viewModelFactory = new DetailViewModelFactory(database, movie.getId());
+        DetailViewModel detailViewModel = ViewModelProviders.of(this, viewModelFactory).get(DetailViewModel.class);
+        detailViewModel.checkIfMovieInDb().observe(this, new Observer<Movie>() {
+            @Override
+            public void onChanged(Movie movieInDb) {
+                if (movieInDb == null) {
+                    favoriteButton.setImageResource(R.drawable.ic_unfavorite);
+                } else if (movie.getId().equals(movieInDb.getId())) {
+                    favoriteButton.setImageResource(R.drawable.ic_favorite);
+                } else {
+                    favoriteButton.setImageResource(R.drawable.ic_unfavorite);
+                }
+            }
+        });
     }
 
     public class GetTrailersAndReviewsTask extends AsyncTask<String, String, List<Object>> {
@@ -159,30 +174,6 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
                 Toast.makeText(DetailActivity.this, "Please check your internet connection and try again.", Toast.LENGTH_LONG).show();
             }
             pbLoading.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    public class SetAsFavorite extends AsyncTask<Movie, Void, Uri> {
-        Movie movie;
-
-        @Override
-        protected Uri doInBackground(Movie... movies) {
-            movie = movies[0];
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(FavoritesContract.Favorite.COLUMN_TITLE, movie.getTitle());
-            contentValues.put(FavoritesContract.Favorite.COLUMN_OVERVIEW, movie.getOverview());
-            contentValues.put(FavoritesContract.Favorite.COLUMN_POSTER_URL, movie.getPosterUrl());
-            contentValues.put(FavoritesContract.Favorite.COLUMN_USER_RATING, movie.getUserRating());
-            contentValues.put(FavoritesContract.Favorite.COLUMN_RELEASE_DATE, movie.getReleaseDate());
-            contentValues.put(FavoritesContract.Favorite.COLUMN_ID, movie.getId());
-            return getContentResolver().insert(FavoritesContract.Favorite.CONTENT_URI, contentValues);
-        }
-
-        @Override
-        protected void onPostExecute(Uri uri) {
-            if (uri != null) {
-                Toast.makeText(DetailActivity.this, movie.getTitle() + " was added to you favorites.", Toast.LENGTH_SHORT).show();
-            }
         }
     }
 }
