@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BuildItBigger.iml" filepath="$PROJECT_DIR$/.idea/modules/BuildItBigger.iml" group="BuildItBigger" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="BuildItBigger/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/backend/backend.iml" filepath="$PROJECT_DIR$/.idea/modules/backend/backend.iml" group="BuildItBigger/backend" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jokesdisplay/jokesdisplay.iml" filepath="$PROJECT_DIR$/.idea/modules/jokesdisplay/jokesdisplay.iml" group="BuildItBigger/jokesdisplay" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jokeslibrary/jokeslibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/jokeslibrary/jokeslibrary.iml" group="BuildItBigger/jokeslibrary" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Android_Me-TFragments.05-Exercise-InterfaceCommunication.iml" filepath="$PROJECT_DIR$/.idea/modules/Android_Me-TFragments.05-Exercise-InterfaceCommunication.iml" group="Android_Me-TFragments.05-Exercise-InterfaceCommunication" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="Android_Me-TFragments.05-Exercise-InterfaceCommunication/app" />
+    </modules>
+  </component>
+</project>

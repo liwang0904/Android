@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Android_Me-TFragments.02-Exercise-DisplayThreeFragments.iml" filepath="$PROJECT_DIR$/.idea/modules/Android_Me-TFragments.02-Exercise-DisplayThreeFragments.iml" group="Android_Me-TFragments.02-Exercise-DisplayThreeFragments" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="Android_Me-TFragments.02-Exercise-DisplayThreeFragments/app" />
+    </modules>
+  </component>
+</project>
