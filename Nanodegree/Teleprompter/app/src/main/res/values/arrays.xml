@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="pref_font_size_labels">
+        <item>@string/pref_font_size_label_small</item>
+        <item>@string/pref_font_size_label_medium</item>
+        <item>@string/pref_font_size_label_large</item>
+        <item>@string/pref_font_size_label_extra_large</item>
+    </array>
+
+    <array name="pref_font_size_values">
+        <item>@string/pref_font_size_small</item>
+        <item>@string/pref_font_size_medium</item>
+        <item>@string/pref_font_size_large</item>
+        <item>@string/pref_font_size_extra_large</item>
+    </array>
+
+    <array name="pref_speed_labels">
+        <item>@string/pref_speed_label_1</item>
+        <item>@string/pref_speed_label_2</item>
+        <item>@string/pref_speed_label_3</item>
+        <item>@string/pref_speed_label_4</item>
+        <item>@string/pref_speed_label_5</item>
+    </array>
+
+    <array name="pref_speed_values">
+        <item>@string/pref_speed_value_1</item>
+        <item>@string/pref_speed_value_2</item>
+        <item>@string/pref_speed_value_3</item>
+        <item>@string/pref_speed_value_4</item>
+        <item>@string/pref_speed_value_5</item>
+    </array>
+
+    <string name="pref_font_size_label_small">Small</string>
+    <string name="pref_font_size_label_medium">Medium</string>
+    <string name="pref_font_size_label_large">Large</string>
+    <string name="pref_font_size_label_extra_large">Extra Large</string>
+
+    <string name="pref_font_size_small">0</string>
+    <string name="pref_font_size_medium">1</string>
+    <string name="pref_font_size_large">2</string>
+    <string name="pref_font_size_extra_large">3</string>
+
+    <string name="pref_speed_label_1">1</string>
+    <string name="pref_speed_label_2">2</string>
+    <string name="pref_speed_label_3">3</string>
+    <string name="pref_speed_label_4">4</string>
+    <string name="pref_speed_label_5">5</string>
+
+    <string name="pref_speed_value_1">0</string>
+    <string name="pref_speed_value_2">1</string>
+    <string name="pref_speed_value_3">2</string>
+    <string name="pref_speed_value_4">3</string>
+    <string name="pref_speed_value_5">4</string>
+</resources>

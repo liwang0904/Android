@@ -8,6 +8,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Set;
 
 public class RecipeRepository {
     private static RecipeRepository repository;
+    private List<Recipe> recipes;
 
     private RecipeRepository() {}
 
@@ -24,31 +26,31 @@ public class RecipeRepository {
         return repository;
     }
 
-    public void getRecipeData(final Context context) {
+    public void getRecipeData(final Context context) throws IOException {
         AndroidNetworking.initialize(context);
         AndroidNetworking.get(context.getResources().getString(R.string.url)).setPriority(Priority.HIGH).build().getAsObjectList(Recipe.class, new ParsedRequestListener<List<Recipe>>() {
             @Override
             public void onResponse(List<Recipe> recipes) {
-                setValue();
+                System.out.println("********" + recipes);
+                setValue(recipes);
                 storeData(context, recipes);
             }
 
             @Override
             public void onError(ANError anError) {
-
             }
         });
     }
 
+    public void setValue(List<Recipe> recipesList) {
+        this.recipes = recipesList;
+    }
+
     public Set<String> getRecipeSet(Context context) {
         Set<String> set;
-        System.out.println("********" + context.getString(R.string.DATA_PREFERENCE_FILE));
         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.DATA_PREFERENCE_FILE), Context.MODE_PRIVATE);
         set = sharedPreferences.getStringSet(context.getString(R.string.recipe_ingredients), null);
         return set;
-    }
-
-    public void setValue() {
     }
 
     private void storeData(Context context, List<Recipe> recipes) {

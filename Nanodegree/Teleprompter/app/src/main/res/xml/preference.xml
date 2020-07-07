@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:defaultValue="@string/pref_font_size_medium"
+        android:entries="@array/pref_font_size_labels"
+        android:entryValues="@array/pref_font_size_values"
+        android:key="@string/pref_font_size_key"
+        android:title="@string/font_size_label" />
+
+    <ListPreference
+        android:defaultValue="@string/pref_speed_value_2"
+        android:entries="@array/pref_speed_labels"
+        android:entryValues="@array/pref_speed_values"
+        android:key="@string/pref_speed_key"
+        android:title="@string/pref_speed_title" />
+</PreferenceScreen>

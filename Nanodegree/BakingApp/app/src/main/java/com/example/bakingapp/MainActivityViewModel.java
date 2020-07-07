@@ -1,10 +1,12 @@
 package com.example.bakingapp;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -24,11 +26,20 @@ public class MainActivityViewModel extends AndroidViewModel {
     public List<Recipe> getRecipeData() {
         if (recipes == null) {
             recipes = new ArrayList<>();
-            repository.getRecipeData(getApplication().getApplicationContext());
-            Set<String> set = repository.getRecipeSet(getApplication().getApplicationContext());
-            for (String recipe: set) {
-                recipes.add(GsonInstance.getInstance().fromJson(recipe, Recipe.class));
+            try {
+                repository.getRecipeData(getApplication().getApplicationContext());
+
+                Set<String> set = repository.getRecipeSet(getApplication().getApplicationContext());
+                if(set != null) {
+                    for (String data : set) {
+                        recipes.add(GsonInstance.getInstance().fromJson(data, Recipe.class));
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            if (recipes == null)
+                Log.e("MainActivityViewModel", "Empty!");
         }
         return recipes;
     }

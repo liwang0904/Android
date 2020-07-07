@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.espresso.IdlingResource;
 
 import java.util.List;
 
@@ -40,5 +41,11 @@ public class MainActivity extends AppCompatActivity implements MessageDelayer.De
     @Override
     public void onDone() {
         Toast.makeText(this, "Done!", Toast.LENGTH_SHORT).show();
+    }
+
+    public IdlingResource getIdlingResource() {
+        if (idlingResource == null)
+            idlingResource = new SimpleIdlingResource();
+        return idlingResource;
     }
 }

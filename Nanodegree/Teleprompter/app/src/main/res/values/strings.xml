@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">Teleprompter</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_sync">Sync</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_share">Share</string>
+    <string name="action_delete">Delete</string>
+    <string name="pref_font_size_key">pref_font_size_key_string</string>
+    <string name="pref_speed_key">pref_speed_key_string</string>
+    <string name="pref_speed_title">Default Scroll Speed</string>
+
+    <string name="empty_cursor">You don\'t have any documents yet! Create a new doc by clicking the "+" button.</string>
+    <string name="no_pinned_docs_msg">No documents have been pinned!</string>
+
+    <!--    TODO -->
+    <string name="webclient_server_id" translatable="false">1007907483358-q7kdcp0bhhf8ec77moib0ejj1n1ods18.apps.googleusercontent.com</string>
+
+    <string name="delete_confirm_message">Are you sure you want to delete %1$s?</string>
+    <string name="delete_confirm">Delete</string>
+    <string name="request_internet_message">An internet connection is required. Please turn on the internet.</string>
+    <string name="request_internet">Internet Connection Required</string>
+    <string name="dialog_positive">Yes</string>
+    <string name="dialog_negative">No</string>
+    <string name="background_color_key">background_color_key</string>
+    <string name="text_color_key">text_color_key</string>
+    <string name="username_key">username_key</string>
+    <string name="email_key">email_key</string>
+    <string name="uid_key">uid_key</string>
+    <string name="last_id_key">last_id_key</string>
+    <string name="last_cloudid_key">last_cloudid_key</string>
+    <string name="pinned_document_key">pinned_document_key</string>
+    <string name="text_hint">Start typing here…</string>
+    <string name="title_hint">Title</string>
+    <string name="text_color_label">Text Color</string>
+    <string name="background_color_label">Background Color</string>
+    <string name="scroll_speed_label">Scroll Speed</string>
+    <string name="font_size_label">Font Size</string>
+    <string name="select">Select</string>
+    <string name="set_default">Set as Default</string>
+    <string name="cancel">Cancel</string>
+    <string name="r">R</string>
+    <string name="g">G</string>
+    <string name="b">B</string>
+    <string name="countdown_3">3</string>
+    <string name="slideshow_play">Play</string>
+    <string name="slideshow_pause">Pause</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="or">or</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="field_required">This field is required!</string>
+    <string name="invalid_email">Invalid email address!</string>
+    <string name="invalid_password">Your password is too short!</string>
+    <string name="account_not_exists">No such account exists with this email!</string>
+    <string name="incorrect_password">The password you entered is incorrect!</string>
+    <string name="failed">An unexpected error occurred!</string>
+    <string name="permission_message">Contact permissions are needed!</string>
+    <string name="email_sent">Please check your email for further instructions.</string>
+    <string name="email_not_found">No such account exists with this email. Please sign up or try signing in with another email address.</string>
+    <string name="authentication_failed">Authentication failed. Please try again.</string>
+    <string name="check_google_account">Please check your Google account and try again.</string>
+    <string name="reset_password_message">A link will be sent to your email. Check there for further instructions.</string>
+    <string name="send">Send</string>
+    <string name="sign_in">Sign in</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="first_and_last_name">First and Last Name</string>
+    <string name="not_matching">Your passwords do not match!</string>
+    <string name="long_name">Please try to reduce your name to 60 characters or less.</string>
+    <string name="account_exists">This account already exists!</string>
+</resources>
